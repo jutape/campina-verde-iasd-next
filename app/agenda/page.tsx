@@ -1,6 +1,5 @@
-// components/Calendar.jsx
-
-"use client"; // Se estiver usando o Next.js 13 com o app directory
+"use client";
+/* eslint-disable @typescript-eslint/no-explicit-any */
 
 import React, { useState } from "react";
 import {
@@ -10,11 +9,7 @@ import {
   CardContent,
   CardDescription,
 } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import {
-  Tooltip,
-  TooltipTrigger,
-  TooltipContent,
   TooltipProvider,
 } from "@/components/ui/tooltip";
 import { Button } from "@/components/ui/button";
@@ -86,7 +81,7 @@ function Calendar() {
   );
   const weeks = [];
 
-  let date = new Date(firstDayOfMonth);
+  const date = new Date(firstDayOfMonth);
   date.setDate(date.getDate() - date.getDay()); // Começa no domingo
 
   while (date <= lastDayOfMonth || date.getDay() !== 0) {
@@ -173,6 +168,7 @@ function Calendar() {
                 <React.Fragment key={idx}>
                   {week.map(({ date, event }, idx2) => (
                     <div
+                      key={idx2}
                       className={cn(
                         "rounded-full w-8 h-8 flex justify-center items-center transition-all ease-linear",
                         date.getMonth() !== currentMonth.getMonth() &&
