@@ -20,7 +20,7 @@ import { Book, ChevronLeft, ChevronRight, Church } from "lucide-react";
 const data = {
   dates: [
     { date: "2024-10-30", prayer: "Leitura Grande Conflito" },
-    { date: "2024-11-02", prayer: "Rái" },
+    { date: "2024-11-02", prayer: "Geraldo Russ" },
     { date: "2024-11-03", prayer: "Alexandre" },
     { date: "2024-11-06", prayer: "Leitura Grande Conflito" },
     { date: "2024-11-09", prayer: "Moisés" },
@@ -35,6 +35,22 @@ const data = {
     { date: "2024-11-29", prayer: "José Carlos" },
     { date: "2024-11-30", prayer: "João Pedro" },
     { date: "2024-12-01", prayer: "Jorge" },
+    { date: "2024-12-04", prayer: "Leitura Grande Conflito" },
+    { date: "2024-12-07", prayer: "Alexandre" },
+    { date: "2024-12-08", prayer: "João Pedro" },
+    { date: "2024-12-11", prayer: "Leitura Grande Conflito" },
+    { date: "2024-12-14", prayer: "João Pedro" },
+    { date: "2024-12-18", prayer: "Leitura Grande Conflito" },
+    { date: "2024-12-21", prayer: "Jorge" },
+    { date: "2024-12-25", prayer: "Leitura Grande Conflito" },
+    { date: "2025-01-11", prayer: "Semana das primicias" },
+    { date: "2025-01-25", prayer: "Semana das primicias" },
+    { date: "2025-01-26", prayer: "Semana das primicias" },
+    { date: "2025-01-29", prayer: "Semana das primicias" },
+    { date: "2025-01-31", prayer: "Semana das primicias" },
+    { date: "2025-02-01", prayer: "Semana das primicias" },
+    { date: "2025-02-02", prayer: "Semana das primicias" },
+    { date: "2025-02-08", prayer: "Samuel" },
   ],
 };
 
@@ -43,25 +59,21 @@ const cultoSchedule: any = {
     dayName: "Domingo",
     startTime: "19:00",
     endTime: "20:00",
-    description: "Culto dominical das 19hrs até 20hrs.",
   },
   3: { // Quarta-feira
     dayName: "Quarta-feira",
-    startTime: "19:00",
-    endTime: "20:00",
-    description: "Culto de quarta-feira das 19hrs até 20hrs.",
+    startTime: "19:30",
+    endTime: "20:30",
   },
   5: { // Sexta-feira
     dayName: "Sexta-feira",
     startTime: "19:00",
     endTime: "20:00",
-    description: "Culto de sexta-feira das 19hrs até 20hrs.",
   },
   6: { // Sábado
     dayName: "Sábado",
     startTime: "09:00",
     endTime: "12:00",
-    description: "Culto sabatino das 9hrs até meio-dia.",
   }
 };
 
@@ -111,6 +123,7 @@ function Calendar() {
   };
 
   const getEventInformation = () => {
+    console.log(data.dates)
     return data.dates.filter((d) => d.date === selectedDate.toISOString().split("T")[0])
   }
 
