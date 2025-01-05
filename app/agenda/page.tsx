@@ -63,6 +63,7 @@ const data = {
     { date: "2025-01-31", prayer: "Semana das primicias" },
     { date: "2025-02-01", prayer: "Semana das primicias" },
     { date: "2025-02-02", prayer: "Semana das primicias" },
+    { date: "2025-02-05", prayer: "Leitura Grande Conflito" },
     { date: "2025-02-08", prayer: "Samuel" },
   ],
 };
