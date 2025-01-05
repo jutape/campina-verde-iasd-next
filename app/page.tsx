@@ -9,7 +9,7 @@ export default function Home() {
         <Image
           className=""
           src={AdventistLogo}
-          alt="Next.js logo"
+          alt="logo-adventista"
           width={180}
           height={38}
           priority
@@ -26,6 +26,13 @@ export default function Home() {
             rel="noopener noreferrer"
           >
             Agenda de culto
+          </Link>
+          <Link
+            className="flex items-center justify-center px-2 hover:underline text-xs "
+            href="/login"
+            rel="noopener noreferrer"
+          >
+            Gerenciar Ministério
           </Link>
         </div>
       </main>
