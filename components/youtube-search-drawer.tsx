@@ -194,6 +194,7 @@ export default function YouTubeSearchDrawer({
                                                 alt={video.title}
                                                 width={120}
                                                 height={90}
+                                                unoptimized
                                                 className="rounded-md object-cover"
                                             />
                                             <div className="flex flex-col flex-1 min-w-0">
@@ -222,6 +223,7 @@ export default function YouTubeSearchDrawer({
                                             alt={selectedVideo.title}
                                             width={120}
                                             height={90}
+                                            unoptimized
                                             className="w-full h-full object-cover rounded-md"
                                         />
                                         <div className="absolute inset-0 bg-black/20 flex items-center justify-center">
