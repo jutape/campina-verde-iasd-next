@@ -210,7 +210,7 @@ export default function EventCard({
                                     <p className="text-sm break-words">{event.prayer}</p>
                                     {event.sermonTheme && (
                                         <p className="text-xs text-gray-600 mt-1 italic">
-                                            Tema: "{event.sermonTheme}"
+                                            Tema: &ldquo;{event.sermonTheme}&rdquo;
                                         </p>
                                     )}
                                 </div>
@@ -315,7 +315,7 @@ export default function EventCard({
                                 <p className="text-sm break-words">{event.prayer}</p>
                                 {event.sermonTheme && (
                                     <p className="text-xs text-gray-600 mt-1 italic">
-                                        Tema: "{event.sermonTheme}"
+                                        Tema: &ldquo;{event.sermonTheme}&rdquo;
                                     </p>
                                 )}
                             </div>

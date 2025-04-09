@@ -6,7 +6,6 @@ import {
     DrawerClose,
     DrawerContent,
     DrawerDescription,
-    DrawerFooter,
     DrawerHeader,
     DrawerTitle,
 } from "@/components/ui/drawer";
@@ -14,7 +13,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Search, Youtube, Music, ExternalLink, X } from "lucide-react";
 import youtubeService, { YouTubeSearchResult, YouTubeVideo } from "@/services/youtube-service";
-import { toast } from "@/hooks/use-toast";
+import Image from "next/image";
 
 export type YouTubeSearchDrawerProps = {
     isOpen: boolean;
@@ -32,10 +31,10 @@ export default function YouTubeSearchDrawer({
     description,
 }: YouTubeSearchDrawerProps) {
     const [searchQuery, setSearchQuery] = useState("");
+    const [isSearching, setIsSearching] = useState(false);
     const [searchResults, setSearchResults] = useState<YouTubeSearchResult[]>([]);
     const [loading, setLoading] = useState(false);
     const [selectedVideo, setSelectedVideo] = useState<YouTubeSearchResult | null>(null);
-    const searchTimeout = useRef<NodeJS.Timeout | null>(null);
     const [showResults, setShowResults] = useState(false);
     const resultsContainerRef = useRef<HTMLDivElement>(null);
     const inputRef = useRef<HTMLInputElement>(null);
@@ -68,6 +67,23 @@ export default function YouTubeSearchDrawer({
             document.removeEventListener("mousedown", handleClickOutside);
         };
     }, []);
+
+    useEffect(() => {
+        if (searchQuery.trim()) {
+            setIsSearching(true);
+            const timeoutId = setTimeout(() => {
+                performSearch();
+            }, 500);
+            
+            return () => clearTimeout(timeoutId);
+        }
+    }, [searchQuery]);
+
+    const performSearch = async () => {
+        const results = await youtubeService.searchVideos(searchQuery);
+        setSearchResults(results);
+        setIsSearching(false);
+    };
 
     const handleSearch = async () => {
         if (!searchQuery.trim()) return;
@@ -176,10 +192,12 @@ export default function YouTubeSearchDrawer({
                                             }`}
                                             onClick={() => handleSelectVideo(video)}
                                         >
-                                            <img
+                                            <Image 
                                                 src={video.thumbnail}
-                                                alt=""
-                                                className="w-12 h-9 object-cover rounded"
+                                                alt={video.title}
+                                                width={120}
+                                                height={90}
+                                                className="rounded-md object-cover"
                                             />
                                             <div className="flex flex-col flex-1 min-w-0">
                                                 <span className="text-sm font-medium truncate">{video.title}</span>
@@ -202,9 +220,11 @@ export default function YouTubeSearchDrawer({
                             {selectedVideo && (
                                 <div className="border rounded-md p-3 bg-muted/10 mb-4">
                                     <div className="aspect-video relative mb-2">
-                                        <img 
+                                        <Image 
                                             src={selectedVideo.thumbnail.replace('default.jpg', 'hqdefault.jpg')} 
                                             alt={selectedVideo.title}
+                                            width={120}
+                                            height={90}
                                             className="w-full h-full object-cover rounded-md"
                                         />
                                         <div className="absolute inset-0 bg-black/20 flex items-center justify-center">

@@ -13,7 +13,6 @@ import { YouTubeVideo } from "@/services/youtube-service";
 import CalendarNavigation from "@/components/calendar-navigation";
 import EventCard from "@/components/event-card";
 import { toast } from "@/hooks/use-toast";
-import { authService } from "@/services/auth-service";
 
 function Calendar() {
     const searchParams = useSearchParams();

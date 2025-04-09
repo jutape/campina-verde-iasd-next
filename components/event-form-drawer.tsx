@@ -9,7 +9,6 @@ import {
     DrawerFooter,
     DrawerHeader,
     DrawerTitle,
-    DrawerTrigger,
 } from "@/components/ui/drawer";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
