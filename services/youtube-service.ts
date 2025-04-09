@@ -12,7 +12,7 @@ export interface YouTubeVideo {
 }
 
 // Get API key from environment variable with fallback
-const API_KEY = process.env.NEXT_YOUTUBE_API_KEY || '';
+const API_KEY = process.env.NEXT_YOUTUBE_API_KEY || 'AIzaSyCxYUbAu9IimbgfTqHEqJ4VJTOrz0o9kp4';
 
 class YouTubeService {
   async searchVideos(query: string): Promise<YouTubeSearchResult[]> {
