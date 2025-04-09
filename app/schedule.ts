@@ -368,7 +368,7 @@ export function generateProgramText(event: EventItem, date: Date, includeLink: b
   // Add access link to the agenda page
   if (includeLink) {
     const formattedDate = `${yearStr}-${monthStr}-${dayStr}`;
-    text += `\n\n📅 Ver programação completa: https://campina-verde-iasd.vercel.app/agenda?date=${formattedDate}`;
+    text += `\n\n📅 Ver programação completa: https://campina-verde-iasd-next.vercel.app/agenda?date=${formattedDate}`;
   }
   
   return text;
