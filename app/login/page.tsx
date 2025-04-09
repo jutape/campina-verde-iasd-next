@@ -1,16 +1,58 @@
 'use client'
+import { useState } from "react";
+import { useSearchParams, useRouter } from "next/navigation";
 import { Church } from "lucide-react";
-import { Button } from "@/components/ui/button"
-import { Label } from "@/components/ui/label"
+import { Button } from "@/components/ui/button";
+import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
-
+import { authService } from "@/services/auth-service";
+import { toast } from "@/hooks/use-toast";
 
 export default function LoginPage() {
+    const searchParams = useSearchParams();
+    const router = useRouter();
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [isLoading, setIsLoading] = useState(false);
+    const [errorMessage, setErrorMessage] = useState("");
 
-    const onSubmitFunction = (e: any) => {
-        e.preventDefault()
-        location.href = '/event/create'
-    }
+    const onSubmitFunction = async (e: React.FormEvent) => {
+        e.preventDefault();
+        
+        if (!email || !password) {
+            setErrorMessage("Por favor, preencha todos os campos.");
+            return;
+        }
+        
+        setIsLoading(true);
+        setErrorMessage("");
+        
+        try {
+            const success = await authService.login(email, password);
+            
+            if (success) {
+                toast({
+                    title: "Login realizado!",
+                    description: "Você foi autenticado com sucesso.",
+                });
+                
+                // Check if we have a date parameter to preserve during redirection
+                const dateParam = searchParams.get('date');
+                const redirectPath = dateParam 
+                    ? `/manage/agenda?date=${dateParam}`
+                    : '/manage/agenda';
+                    
+                router.push(redirectPath);
+            } else {
+                setErrorMessage("Credenciais inválidas. Por favor, tente novamente.");
+            }
+        } catch (error) {
+            console.error("Login error:", error);
+            setErrorMessage("Erro ao realizar login. Por favor, tente novamente mais tarde.");
+        } finally {
+            setIsLoading(false);
+        }
+    };
 
     return (
         <div className="flex min-h-svh flex-col items-center justify-center gap-6 bg-background p-6 md:p-10">
@@ -37,12 +79,20 @@ export default function LoginPage() {
                                 </div>
                             </div>
                             <div className="flex flex-col gap-6">
+                                {errorMessage && (
+                                    <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded">
+                                        {errorMessage}
+                                    </div>
+                                )}
+                                
                                 <div className="grid gap-2">
                                     <Label htmlFor="email">Email</Label>
                                     <Input
                                         id="email"
                                         type="email"
                                         placeholder="m@exemplo.com"
+                                        value={email}
+                                        onChange={(e) => setEmail(e.target.value)}
                                         required
                                     />
                                 </div>
@@ -52,11 +102,13 @@ export default function LoginPage() {
                                         id="password"
                                         type="password"
                                         placeholder="**********"
+                                        value={password}
+                                        onChange={(e) => setPassword(e.target.value)}
                                         required
                                     />
                                 </div>
-                                <Button type="submit" className="w-full">
-                                    Entrar
+                                <Button type="submit" className="w-full" disabled={isLoading}>
+                                    {isLoading ? "Entrando..." : "Entrar"}
                                 </Button>
                             </div>
                         </div>
@@ -67,5 +119,5 @@ export default function LoginPage() {
                 </div>
             </div>
         </div>
-    )
+    );
 }
