@@ -31,7 +31,6 @@ export default function YouTubeSearchDrawer({
     description,
 }: YouTubeSearchDrawerProps) {
     const [searchQuery, setSearchQuery] = useState("");
-    const [isSearching, setIsSearching] = useState(false);
     const [searchResults, setSearchResults] = useState<YouTubeSearchResult[]>([]);
     const [loading, setLoading] = useState(false);
     const [selectedVideo, setSelectedVideo] = useState<YouTubeSearchResult | null>(null);
@@ -70,7 +69,6 @@ export default function YouTubeSearchDrawer({
 
     useEffect(() => {
         if (searchQuery.trim()) {
-            setIsSearching(true);
             const timeoutId = setTimeout(() => {
                 performSearch();
             }, 500);
@@ -82,7 +80,6 @@ export default function YouTubeSearchDrawer({
     const performSearch = async () => {
         const results = await youtubeService.searchVideos(searchQuery);
         setSearchResults(results);
-        setIsSearching(false);
     };
 
     const handleSearch = async () => {
